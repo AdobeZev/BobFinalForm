@@ -1,0 +1,16 @@
+/* Scripted by Adobe Zev */
+
+/* Requires */
+
+/* Discord Requires */
+
+let Discord = require(`discord.js`);
+let {Client, Intents} = require(`discord.js`);
+let client = new Client({ws: {intents: Intents.all}});
+
+/* Functions */
+
+module.exports = 
+{
+	
+};
