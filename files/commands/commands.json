@@ -1,12 +1,38 @@
-/* Scripted by AdobeZev */
-
-/* 
-	{
-		"name":"name",
-		"desc":"Desc"
-	}
-*/
 
 [
 	
+	{
+		"name":"Help",
+		"desc":"Shows all commands"
+	},
+
+	{
+		"name":"Pog",
+		"desc":"Poggers"
+	},
+
+	{
+		"name":"Ping",
+		"desc":"Pong"
+	},
+
+	{
+		"name":"Meat",
+		"desc":"Meat!Meat!Meat!Meat!"
+	},
+
+	{
+		"name":"Marco",
+		"desc":"The spanish guy."
+	},
+
+	{
+		"name":"Kill",
+		"desc":"Sounds fun."
+	},
+
+	{
+		"name":"Revive",
+		"desc":"Doesn't sound so fun."
+	}	
 ]

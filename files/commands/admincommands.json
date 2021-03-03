@@ -1,12 +1,24 @@
-/* Scripted by AdobeZev */
-
-/* 
-	{
-		"name":"name",
-		"desc":"Desc"
-	}
-*/
-
 [
-	
+
+	{
+		"name":"Ban",
+		"desc":"Bans User @"
+	},
+	{
+		"name":"Pardon",
+		"desc":"Unbans User @"
+	},
+	{
+		"name":"IsBanned",
+		"desc":"Checks if user is banned"
+	},
+
+	{
+		"name":"Mute",
+		"desc":"Mute's a user. @ T R"
+	},
+	{
+		"name":"Unmute",
+		"desc":"UnMite's a user. @ R"
+	}			
 ]

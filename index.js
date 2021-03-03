@@ -39,9 +39,65 @@ client.on(`message`, (Message) =>
 
 	CommandsMessage.Log(Message);
 
-	if (CommandsMessage.IncludesPrefix(Message, Prefix))
+	/* Check if Message has Prefix and Isn't a url */
+
+	if (CommandsMessage.IncludesPrefix(Message.content, Prefix))
 	{
-		
+
+		/* Check if Banned */
+
+		if (CommandsUserCheck.BanCheck(Message.author, Message.guild) == false)
+		{
+
+			/* Message Variable Setups */
+
+			let MessageContent = Message.content;
+			let MessageGuild = Message.guild;
+			let MessageAuthor = Message.author;
+			let MessageMember = Message.member;
+
+			/* Split Message */
+
+			let SplitMessageContent = CommandsMessage.Split(MessageContent, Prefix);
+			
+			/* Check if Split Message Content isn't null */
+
+			if (SplitMessageContent != null)
+			{
+
+				/* Split Message Variables */
+
+				let Command = SplitMessageContent[0];
+
+				/* Check if Command is actual Command */
+				
+				let FoundCommand = CommandsMessage.FindCommand(Command, MessageMember, Message);
+
+				if (FoundCommand != null)
+				{
+
+					CommandsMessage.RunCommand(Message, FoundCommand);
+					
+				}
+				else
+				{
+					console.log(`Its null retard`);
+				}
+
+			}
+
+		}
+		else
+		{
+
+			/* Banned Message */
+
+			Message.channel.send(`${Message.author}, you are not allowed to run commands.`);
+		}
+	}
+	else
+	{
+		return;
 	}
 
 });
@@ -53,7 +109,12 @@ client.on(`messageUpdate`, (OldMessage, NewMessage) =>
 
 	/* Log Message */
 
-	CommandsMessage.Log(NewMessage, OldMessage, false, true);
+	if (OldMessage.content != NewMessage.content || NewMessage.content == "")
+	{
+
+		CommandsMessage.Log(NewMessage, OldMessage, false, true);
+
+	}
 
 });
 
