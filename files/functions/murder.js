@@ -29,6 +29,16 @@ function KillFunction(Message, FirstMention = null)
 	}
 	else
 	{
+
+		if (FirstMention.user.bot)
+		{
+
+			Message.channel.send(`${Message.author} you cannot kill a bot! Baka!`);
+
+			return;
+
+		}
+
 		MurderUser = FirstMention.id;
 		MurderUserName = FirstMention.user.username;
 	}
@@ -88,7 +98,7 @@ function KillFunction(Message, FirstMention = null)
 			else
 			{
 
-				Message.channel.send(`${Message.author}, ${MurderUser.username} is already dead!`);
+				Message.channel.send(`${Message.author}, ${MurderUserName} is already dead!`);
 
 			}
 
@@ -120,6 +130,7 @@ function KillFunction(Message, FirstMention = null)
 			+ (RandomMessage == 0.7 ? `Did it feel good?` : ``)
 			+ (RandomMessage == 0.8 ? `Who told you a suger rush was a good thing?` : ``)
 			+ (RandomMessage == 0.9 ? `You touched death and loved it ... Too much.` : ``)
+			+ (RandomMessage == 1 ? `That's rough buddy.` : ``)
 
 			Message.channel.send(LogString);
 
@@ -140,6 +151,7 @@ function KillFunction(Message, FirstMention = null)
 			+ (RandomMessage == 0.7 ? `fell asleep. Their grip loosened and ${MurderUserName} fell.` : ``)
 			+ (RandomMessage == 0.8 ? `bet ${MurderUserName}. ${MurderUserName} lost.` : ``)
 			+ (RandomMessage == 0.9 ? `flipped a coin. ${MurderUserName} had to go.` : ``);
+			+ (RandomMessage == 1 ? `: Omai wa mu moi shinderiu\n${MurderUserName} : NAnII????` : ``)
 
 			Message.channel.send(LogString);
 
@@ -171,6 +183,7 @@ function KillFunction(Message, FirstMention = null)
 			+ (RandomMessage == 0.7 ? `Did it feel good?` : ``)
 			+ (RandomMessage == 0.8 ? `Who told you a suger rush was a good thing?` : ``)
 			+ (RandomMessage == 0.9 ? `You touched death and loved it ... Too much.` : ``)
+			+ (RandomMessage == 1 ? `That's rough buddy.` : ``)
 
 			Message.channel.send(LogString);
 
@@ -191,6 +204,7 @@ function KillFunction(Message, FirstMention = null)
 			+ (RandomMessage == 0.7 ? `fell asleep. Their grip loosened and ${MurderUserName} fell.` : ``)
 			+ (RandomMessage == 0.8 ? `bet ${MurderUserName}. ${MurderUserName} lost.` : ``)
 			+ (RandomMessage == 0.9 ? `flipped a coin. ${MurderUserName} had to go.` : ``);
+			+ (RandomMessage == 1 ? `: Omai wa mu moi shinderiu\n${MurderUserName} : NAnII????` : ``)
 
 			Message.channel.send(LogString);
 
@@ -206,14 +220,17 @@ function ResFunction(Message, FirstMention)
 	/* Check if First Mention is not Null */
 
 	let MurderUser = null;
+	let MurderUserName = null;
 
 	if (FirstMention == null)
 	{
 		MurderUser = Message.member;
+		MurderUserName = Message.author.username;
 	}
 	else
 	{
-		MurderUser = FirstMention;
+		MurderUser = FirstMention.id;
+		MurderUserName = FirstMention.user.username;
 	}
 
 	/* Find Files */
@@ -231,12 +248,94 @@ function ResFunction(Message, FirstMention)
 
 	/* Get Files */
 
-	let MurderJSON = JSON.parse(MurderString);
+	let MurderJSON = JSON.parse(fs.readFileSync(MurderString));
 
 	/* Check if MurderUser is dead */
 
 	if (MurderJSON.length > 0)
 	{
+
+		let FoundUser = false;
+		let Placement = 0;
+
+		for (i = 0; i < MurderJSON.length; i++)
+		{
+
+			if (MurderJSON[i].id == MurderUser)
+			{
+				FoundUser = true;
+				Placement = i;
+				break;
+			}
+
+		}
+
+		if (FoundUser)
+		{
+
+			MurderJSON.splice(Placement, 1);
+
+			fs.writeFileSync(MurderString, JSON.stringify(MurderJSON));
+
+			let RandomMessage = Math.round(Math.random() * 10) / 10;
+
+			if (MurderUser == Message.author.id)
+			{
+
+				let ReviveString = `${Message.author}`
+				+ (RandomMessage == 0.0 ? ` has figured out if you jump off a cliff in heaven you just come back to earth.` : ``)
+				+ (RandomMessage == 0.1 ? ` was too touchy with god. They came back burnt.` : ``)
+				+ (RandomMessage == 0.2 ? ` never left. Earth is hell.` : ``)
+				+ (RandomMessage == 0.3 ? `'s knife had a revive spell engraved. What an idiot` : ``)
+				+ (RandomMessage == 0.4 ? ` didn't like that demons summoned him to hell. He went back through the portal.` : ``)
+				+ (RandomMessage == 0.5 ? ` was kicked out of heaven.` : ``)
+				+ (RandomMessage == 0.6 ? ` pogchamped. Who knew god hated pogchamp?` : ``)
+				+ (RandomMessage == 0.7 ? ` woke up from a dream.` : ``)
+				+ (RandomMessage == 0.8 ? ` was so normal that they couldn't go to heaven, hell, or purgatory.` : ``)
+				+ (RandomMessage == 0.9 ? ` was too edgy for god.` : ``)
+				+ (RandomMessage == 1 ? ` That's rough buddy.` : ``);
+
+				Message.channel.send(ReviveString);
+
+			}
+			else
+			{
+
+				let ReviveString = `${Message.author}`
+				+ (RandomMessage == 0.0 ? ` has summoned ${MurderUserName} back to life.` : '')
+				+ (RandomMessage == 0.1 ? ` has been allowed to talk to ${MurderUserName} one last time.` : '')
+				+ (RandomMessage == 0.2 ? ` accidentally brought ${MurderUserName} back. Their arch nemesis!` : '')
+				+ (RandomMessage == 0.3 ? ` pogged ${MurderUserName}` : '')
+				+ (RandomMessage == 0.4 ? ` dropped dragon saliva on ${MurderUserName}. It brought them back!` : '')
+				+ (RandomMessage == 0.5 ? ` has superpowers and cried ${MurderUserName} back to life!` : '')
+				+ (RandomMessage == 0.6 ? ` was an idiot and used the wrong knife. The knife had revived ${MurderUserName}!` : '')
+				+ (RandomMessage == 0.7 ? ` gave ${MurderUserName} CPR!` : '')
+				+ (RandomMessage == 0.8 ? ` woke ${MurderUserName} up from a dream.` : '')
+				+ (RandomMessage == 0.9 ? ` couldn't live without ${MurderUserName}. That's kinda cute.` : '')
+				+ (RandomMessage == 1 ? ` ${MurderUserName}: O?` : '')
+
+				Message.channel.send(ReviveString);
+
+			}
+
+		}
+		else
+		{
+
+			if (MurderUser == Message.author.id)
+			{
+
+				Message.channel.send(`${Message.author} you aren't dead. You can't boost your hp by trying a revive spell. Stop.`);
+
+			}
+			else
+			{
+
+				Message.channel.send(`${Message.author} ${MurderUserName} is not dead.`);
+
+			}
+
+		}
 
 	}
 	else
@@ -247,13 +346,13 @@ function ResFunction(Message, FirstMention)
 		if (MurderUser == Message.author)
 		{
 
-			Message.channel.send();
+			Message.channel.send(`${Message.author} you aren't dead. You can't boost your hp by trying a revive spell. Stop.`);
 
 		}
 		else
 		{
 
-
+			Message.channel.send(`${Message.author} ${MurderUserName} is not dead.`);
 
 		}
 
