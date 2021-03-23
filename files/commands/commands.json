@@ -34,5 +34,15 @@
 	{
 		"name":"Revive",
 		"desc":"Doesn't sound so fun."
+	},
+
+	{
+		"name":"Snake",
+		"desc":"Doesn't sound so fun."
+	},
+
+	{
+		"name":"SnakeEnd",
+		"desc":"Doesn't sound so fun."
 	}	
 ]

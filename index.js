@@ -65,6 +65,8 @@ client.on(`message`, (Message) =>
 			if (SplitMessageContent != null)
 			{
 
+				/* Check if Message is not Mention */
+
 				/* Split Message Variables */
 
 				let Command = SplitMessageContent[0];
@@ -81,6 +83,7 @@ client.on(`message`, (Message) =>
 				}
 				else
 				{
+
 					console.log(`Its null retard`);
 				}
 

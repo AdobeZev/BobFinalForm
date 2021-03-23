@@ -12,6 +12,7 @@ let FunctionsPing = require(`./../functions/ping.js`);
 let FunctionsMeat = require(`./../functions/meat.js`);
 let FunctionsMarco = require(`./../functions/marco.js`);
 let FunctionsMurder = require(`./../functions/murder.js`);
+let FunctionsSnake = require(`./../functions/snake.js`);
 
 let FunctionsBbans = require(`./../functions/bban.js`);
 
@@ -252,8 +253,18 @@ function FindCommandFunction(Command, Member, Message)
 
 		/* Tell user their command isn't real */
 
-		Message.channel.send(`${Message.author} '${LoweredCommand}' is not a command.'`);
-		return;
+			if (Message.mentions.size >= 1)
+			{
+
+				if (Message.mentions.roles.first() == null)
+				{
+
+					Message.channel.send(`${Message.author} '${LoweredCommand}' is not a command.'`);
+					return;		
+
+				}
+
+			}
 
 		}
 
@@ -263,8 +274,19 @@ function FindCommandFunction(Command, Member, Message)
 
 		/* Tell user their command isn't real */
 
-		Message.channel.send(`${Message.author} '${LoweredCommand}' is not a command.'`);
-		return;
+		if (Message.mentions.size >= 1)
+		{
+
+			if (Message.mentions.roles.first() == null)
+			{
+
+				Message.channel.send(`${Message.author} '${LoweredCommand}' is not a command.'`);
+				return;		
+
+			}
+
+		}
+
 	}
 
 }
@@ -404,6 +426,16 @@ module.exports =
 				case `resme`:
 
 					FunctionsMurder.Res(Message, FindFirstMentionedUserFunction(Message));
+
+				break;
+
+				/* Snake */
+
+				case CommandJSON[7].name.toLowerCase():
+
+					console.log(FunctionsSnake.SnakeTop(15));
+					console.log(FunctionsSnake.SnakeSide(15,10));
+					console.log(FunctionsSnake.SnakeTop(15));
 
 				break;
 

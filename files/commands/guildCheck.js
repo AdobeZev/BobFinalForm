@@ -138,6 +138,54 @@ function MurderCheckFunction(GuildID)
 
 }
 
+function SnakeCheckFunction(UserID)
+{
+
+	let SnakeString = "./snake";
+	let SnakeUserString = SnakeString + "/${GuildID}";
+
+	if (fs.existsSync(SnakeString))
+	{
+
+		if (fs.existsSync(SnakeUserString))
+		{
+
+			return SnakeUserString;
+
+		}
+		else
+		{
+
+			fs.appendFileSync(SnakeUserString, JSON.stringify([]), function(err)
+			{
+
+				if (err) throw err;
+
+			});
+
+			return SnakeUserString;			
+
+		}
+
+	}
+	else
+	{
+
+		fs.mkdirSync(SnakeString);
+
+		fs.appendFileSync(SnakeUserString, JSON.stringify([]), function(err)
+		{
+
+			if (err) throw err;
+
+		});
+
+		return SnakeUserString;
+
+	}
+
+}
+
 /* Exports */
 
 module.exports = 
@@ -167,6 +215,13 @@ module.exports =
 	MurderCheck: function(GuildID)
 	{
 		return MurderCheckFunction(GuildID);
+	},
+
+	SnakeCheck: function(UserID)
+	{
+		
+		return SnakeCheckFunction(UserID);
+
 	}
 
 };
